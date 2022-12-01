@@ -1,5 +1,6 @@
 let cards = [];
 let total = 0;
+let dTotal = 0;
 let blackJack = false;
 let stillAlive = false;
 
@@ -7,9 +8,16 @@ let myCards = document.getElementById('myCards');
 let myTotal = document.getElementById('myTotal');
 let msg = document.getElementById('msg');
 // buttons
-let startGame = document.getElementById('start');
-let newCard = document.getElementById('new-card');
-let newGame = document.getElementById('new-game');
+const startGame = document.getElementById('start');
+const newCard = document.getElementById('new-card');
+const newGame = document.getElementById('new-game');
+const stay = document.getElementById('stay');
+
+// dealer
+const dealerCards = document.getElementById('dealer-card');
+const dealerTotal = document.getElementById('dealer-total');
+// DEALER LOGIC
+// Dealer first, create a stay button
 
 //new game
 newGame.addEventListener('click', beginGame);
@@ -17,6 +25,18 @@ newGame.addEventListener('click', beginGame);
 newCard.addEventListener('click', getNewCard);
 // startGame functionality
 startGame.addEventListener('click', beginGame);
+
+// dealer turn
+function displayGameDealer() {
+    dealerCards.textContent = "Total: " + dTotal;
+    for (let i = 0; i < cards.length; i++) {
+        dealerCards.textContent += cards[i] + ' ';
+    }
+    if (dTotal < 21) {
+        blackJack = false;
+        dealerAuto();
+    }
+}
 // start by grabbing a random card
 function getRandomCard() {
     // use math.random
@@ -32,12 +52,22 @@ function getRandomCard() {
     }
 }
 
+function dealerAuto() {
+    if (stillAlive === true && blackJack === false) {
+        let dCard = getRandomCard();
+        dTotal += dCard;
+        cards.push(dCard);
+        displayGameDealer();
+    }
+}
+
 function getNewCard() {
     if (stillAlive === true && blackJack === false) {
         let card = getRandomCard()
         total += card;
         cards.push(card);
         displayGame();
+        
     }
 }
 
@@ -47,7 +77,10 @@ function beginGame() {
     let secondCard = getRandomCard();
     cards = [firstCard, secondCard];
     total = firstCard + secondCard;
-    displayGame();
+    displayGameDealer();
+    setTimeout(() => {
+        displayGame();
+    }, 1000)
 }
 
 function displayGame() {
