@@ -20,6 +20,7 @@ let myCards = document.getElementById('myCards');
 let myTotal = document.getElementById('myTotal');
 let msg = document.getElementById('msg');
 let msgDealer = document.getElementById('msg2');
+let tokens = document.getElementById('tokens');
 // buttons
 const startGame = document.getElementById('start');
 const newCard = document.getElementById('new-card');
@@ -40,6 +41,7 @@ newGame.addEventListener('click', beginGame);
 newCard.addEventListener('click', getNewCard);
 // startGame functionality
 startGame.addEventListener('click', beginGame);
+
 
 // start by grabbing a random card
 function getRandomCard() {
@@ -90,6 +92,7 @@ function getNewCard() {
 }
 
 function beginGame() {
+    
     stillAlive = true;
     let firstCard = getRandomCard();
     let secondCard = getRandomCard();
@@ -104,6 +107,13 @@ function beginGame() {
         displayGame();
     }, 1000)
 }
+
+// function useTokens() {
+//     tokens.innerHtml = '100';
+//     let tokens = 100;
+//     --tokens;
+//     return tokens;
+// }
 
 function displayGame() {
     myCards.textContent = 'Cards: '
