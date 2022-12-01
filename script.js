@@ -19,6 +19,7 @@ once dealer stops, render out the winner
 let myCards = document.getElementById('myCards');
 let myTotal = document.getElementById('myTotal');
 let msg = document.getElementById('msg');
+let msgDealer = document.getElementById('msg2');
 // buttons
 const startGame = document.getElementById('start');
 const newCard = document.getElementById('new-card');
@@ -110,7 +111,7 @@ function displayGame() {
         myCards.textContent += cards[i] + ' ';
     }
     myTotal.textContent = "Total: " + total
-    if (total < 21) {
+    if (total < 21 && dTotal < 21) {
         msg.textContent = "Do you want to draw another card"
         blackJack = false;
     }
@@ -119,7 +120,7 @@ function displayGame() {
         blackJack = true;
     }
     else {
-        msg.textContent = "You lose, try again";
+        msg.textContent = "Dealer wins, try again";
     }
 }
 
@@ -131,19 +132,21 @@ function displayGameDealer() {
     }
     dealerTotal.textContent = "Total: " + dTotal;
     console.log(dTotal);
-    if (dTotal < 21) {
+    if (dTotal < 16) {
         // dealerAuto();
         blackJack = false;
+        dealerGetRandom();
         
 
     }
     else if (dTotal === 21) {
         blackJack = true;
         msg.textContent = "Dealer Wins";
+     
     }
 
     else {
-        return;
+        msgDealer.textContext = "Player wins!"
     }
 }
 
