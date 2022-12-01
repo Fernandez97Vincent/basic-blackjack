@@ -31,7 +31,7 @@ const dealerTotal = document.getElementById('dealer-total');
 // DEALER LOGIC
 // Dealer first, create a stay button
 // should add turns, use stay button for that
-stay.addEventListener('click', displayGameDealer);
+stay.addEventListener('click', dealerAuto);
 
 //new game
 newGame.addEventListener('click', beginGame);
@@ -40,25 +40,6 @@ newCard.addEventListener('click', getNewCard);
 // startGame functionality
 startGame.addEventListener('click', beginGame);
 
-// dealer turn
-function displayGameDealer() {
-    for (let i = 0; i < dCards.length; i++) {
-        dealerCards.textContent += dCards[i] + ' ';
-    }
-    dealerTotal.textContent = "Total: " + dTotal;
-    console.log(dTotal);
-    if (dTotal < 21) {
-        dealerAuto();
-        blackJack = false;
-        
-        return;
-    }
-    else if (dTotal === 21) {
-        blackJack === true;
-        msg.textContent = "Dealer Wins";
-        return;
-    }
-}
 // start by grabbing a random card
 function getRandomCard() {
     // use math.random
@@ -74,10 +55,23 @@ function getRandomCard() {
     }
 }
 
+function dealerGetRandom() {
+    let dRandom = Math.floor(Math.random() * 13) + 1;
+    if (dRandom > 10) {
+        return 10;
+    }
+    else if (dRandom === 1) {
+        return 11;
+    }
+    else {
+        return dRandom;
+    }
+}
+
 // call dealer auto once user hits stay button
 function dealerAuto() {
     if (stillAlive === true && blackJack === false) {
-        let dCard = getRandomCard();
+        let dCard = dealerGetRandom();
         dTotal += dCard;
         dCards.push(dCard);
         displayGameDealer();
@@ -98,8 +92,8 @@ function beginGame() {
     stillAlive = true;
     let firstCard = getRandomCard();
     let secondCard = getRandomCard();
-    let dFirstCard = getRandomCard();
-    let dSecondCard = getRandomCard();
+    let dFirstCard = dealerGetRandom();
+    let dSecondCard = dealerGetRandom();
     cards = [firstCard, secondCard];
     total = firstCard + secondCard;
     dCards = [dFirstCard, dSecondCard];
@@ -116,7 +110,7 @@ function displayGame() {
         myCards.textContent += cards[i] + ' ';
     }
     myTotal.textContent = "Total: " + total
-    if (total < 21 && dTotal < 21) {
+    if (total < 21) {
         msg.textContent = "Do you want to draw another card"
         blackJack = false;
     }
@@ -129,4 +123,27 @@ function displayGame() {
     }
 }
 
+// dealer turn
+function displayGameDealer() {
+    dealerCards.textContent = 'Cards: '
+    for (let i = 0; i < dCards.length; i++) {
+        dealerCards.textContent += dCards[i] + ' ';
+    }
+    dealerTotal.textContent = "Total: " + dTotal;
+    console.log(dTotal);
+    if (dTotal < 21) {
+        // dealerAuto();
+        blackJack = false;
+        
+
+    }
+    else if (dTotal === 21) {
+        blackJack = true;
+        msg.textContent = "Dealer Wins";
+    }
+
+    else {
+        return;
+    }
+}
 
