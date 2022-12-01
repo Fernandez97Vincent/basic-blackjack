@@ -1,4 +1,6 @@
 let cards = [];
+// dealer should have their own array of cards
+let dCards = [];
 let total = 0;
 let dTotal = 0;
 let blackJack = false;
@@ -28,13 +30,20 @@ startGame.addEventListener('click', beginGame);
 
 // dealer turn
 function displayGameDealer() {
-    dealerCards.textContent = "Total: " + dTotal;
-    for (let i = 0; i < cards.length; i++) {
-        dealerCards.textContent += cards[i] + ' ';
+    for (let i = 0; i < dCards.length; i++) {
+        dealerCards.textContent += dCards[i] + ' ';
     }
+    dealerTotal.textContent = "Total: " + dTotal;
+    console.log(dTotal);
     if (dTotal < 21) {
         blackJack = false;
         dealerAuto();
+        return;
+    }
+    else if (dTotal === 21) {
+        blackJack === true;
+        msg.textContent = "Dealer Wins";
+        return;
     }
 }
 // start by grabbing a random card
@@ -56,14 +65,14 @@ function dealerAuto() {
     if (stillAlive === true && blackJack === false) {
         let dCard = getRandomCard();
         dTotal += dCard;
-        cards.push(dCard);
+        dCards.push(dCard);
         displayGameDealer();
     }
 }
 
 function getNewCard() {
     if (stillAlive === true && blackJack === false) {
-        let card = getRandomCard()
+        let card = getRandomCard();
         total += card;
         cards.push(card);
         displayGame();
@@ -75,8 +84,12 @@ function beginGame() {
     stillAlive = true;
     let firstCard = getRandomCard();
     let secondCard = getRandomCard();
+    let dFirstCard = getRandomCard();
+    let dSecondCard = getRandomCard();
     cards = [firstCard, secondCard];
     total = firstCard + secondCard;
+    dCards = [dFirstCard, dSecondCard];
+    dTotal = dFirstCard + dSecondCard;
     displayGameDealer();
     setTimeout(() => {
         displayGame();
@@ -89,7 +102,7 @@ function displayGame() {
         myCards.textContent += cards[i] + ' ';
     }
     myTotal.textContent = "Total: " + total
-    if (total < 21) {
+    if (total < 21 && dTotal < 21) {
         msg.textContent = "Do you want to draw another card"
         blackJack = false;
     }
