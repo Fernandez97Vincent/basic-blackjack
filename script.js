@@ -111,7 +111,7 @@ function displayGame() {
         myCards.textContent += cards[i] + ' ';
     }
     myTotal.textContent = "Total: " + total
-    if (total < 21 && dTotal < 21) {
+    if (total < 21) {
         msg.textContent = "Do you want to draw another card"
         blackJack = false;
     }
@@ -133,29 +133,22 @@ function displayGameDealer() {
     dealerTotal.textContent = "Total: " + dTotal;
     console.log(dTotal);
     // for loop to automate the dealerGetRandom
-    // lets try while loop
-    while (dTotal < 17) {
-        dealerGetRandom();
-
-        if (dTotal > 17) {
-            break;
-        }
-    }
-    // if (dTotal < 16) {
-    //     // dealerAuto();
-    //     blackJack = false;
-    //     dealerGetRandom();
+    
+    if (dTotal < 17 && total > dTotal) {
+        // dealerAuto();
+        blackJack = false;
+        dealerAuto();
         
 
-    // }
-    // else if (dTotal === 21) {
-    //     blackJack = true;
-    //     msg.textContent = "Dealer Wins";
+    }
+    else if (dTotal === 21) {
+        blackJack = true;
+        msg.textContent = "Dealer Wins";
      
-    // }
+    }
 
-    // else {
-    //     msgDealer.textContext = "Player wins!"
-    // }
+    else {
+        msgDealer.textContext = "Player wins!"
+    }
 }
 
