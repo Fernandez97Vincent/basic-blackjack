@@ -133,21 +133,29 @@ function displayGameDealer() {
     dealerTotal.textContent = "Total: " + dTotal;
     console.log(dTotal);
     // for loop to automate the dealerGetRandom
-    if (dTotal < 16) {
-        // dealerAuto();
-        blackJack = false;
+    // lets try while loop
+    while (dTotal < 17) {
         dealerGetRandom();
+
+        if (dTotal > 17) {
+            break;
+        }
+    }
+    // if (dTotal < 16) {
+    //     // dealerAuto();
+    //     blackJack = false;
+    //     dealerGetRandom();
         
 
-    }
-    else if (dTotal === 21) {
-        blackJack = true;
-        msg.textContent = "Dealer Wins";
+    // }
+    // else if (dTotal === 21) {
+    //     blackJack = true;
+    //     msg.textContent = "Dealer Wins";
      
-    }
+    // }
 
-    else {
-        msgDealer.textContext = "Player wins!"
-    }
+    // else {
+    //     msgDealer.textContext = "Player wins!"
+    // }
 }
 
