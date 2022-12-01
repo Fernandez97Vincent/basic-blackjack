@@ -5,6 +5,16 @@ let total = 0;
 let dTotal = 0;
 let blackJack = false;
 let stillAlive = false;
+// notes to self -------------------------
+/*
+dealer shouldn't render new cards unless player hits STAY
+Dealer has to get new card under 16 -- automated
+once dealer total > 16 -- stop game
+once dealer stops, render out the winner
+
+------------------ for credits ---------------
+1000 base credits - player can choose bets 
+*/
 
 let myCards = document.getElementById('myCards');
 let myTotal = document.getElementById('myTotal');
@@ -20,6 +30,8 @@ const dealerCards = document.getElementById('dealer-card');
 const dealerTotal = document.getElementById('dealer-total');
 // DEALER LOGIC
 // Dealer first, create a stay button
+// should add turns, use stay button for that
+stay.addEventListener('click', displayGameDealer);
 
 //new game
 newGame.addEventListener('click', beginGame);
@@ -36,8 +48,9 @@ function displayGameDealer() {
     dealerTotal.textContent = "Total: " + dTotal;
     console.log(dTotal);
     if (dTotal < 21) {
-        blackJack = false;
         dealerAuto();
+        blackJack = false;
+        
         return;
     }
     else if (dTotal === 21) {
@@ -61,6 +74,7 @@ function getRandomCard() {
     }
 }
 
+// call dealer auto once user hits stay button
 function dealerAuto() {
     if (stillAlive === true && blackJack === false) {
         let dCard = getRandomCard();
