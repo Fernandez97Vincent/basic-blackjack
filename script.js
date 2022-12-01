@@ -132,6 +132,7 @@ function displayGameDealer() {
     }
     dealerTotal.textContent = "Total: " + dTotal;
     console.log(dTotal);
+    // for loop to automate the dealerGetRandom
     if (dTotal < 16) {
         // dealerAuto();
         blackJack = false;
