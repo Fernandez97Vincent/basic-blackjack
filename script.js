@@ -73,7 +73,7 @@ function dealerGetRandom() {
 
 // call dealer auto once user hits stay button
 function dealerAuto() {
-    if (stillAlive === true && blackJack === false) {
+    if (dTotal < 17 && blackJack === false) {
         let dCard = dealerGetRandom();
         dTotal += dCard;
         dCards.push(dCard);
