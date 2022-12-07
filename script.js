@@ -79,6 +79,15 @@ function dealerAuto() {
         dCards.push(dCard);
         displayGameDealer();
     }
+    else if(dTotal < total) {
+        msg.textContent = "Player wins!"
+    }
+    else if(dTotal === total) {
+        msg.textContent = "Draw!"
+    }
+    else if(dTotal > 17 && dTotal > total) {
+        msg.textContent = "Dealer Wins!";
+    }
 }
 
 function getNewCard() {
@@ -128,6 +137,9 @@ function displayGame() {
     else if (total === 21) {
         msg.textContent = "Blackjack! Do you want to play again?"
         blackJack = true;
+    }
+    else if (dTotal === total) {
+        msg.textContent = "Draw! Please try again"
     }
     else {
         msg.textContent = "Dealer wins, try again";
